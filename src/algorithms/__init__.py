@@ -48,10 +48,19 @@ from .geometry_algorithms import (
 )
 from .range_queries import RMQ
 from .sorting_algorithms import heapsort, mergesort, quicksort, radix_sort
-from .string_algorithms import compute_prefix_function, kmp_search
+from .string_algorithms import (
+    AhoCorasickAutomaton,
+    AhoCorasickMatch,
+    AhoCorasickNode,
+    compute_prefix_function,
+    kmp_search,
+)
 from .tree_algorithms import LowestCommonAncestor
 
 __all__ = [
+    "AhoCorasickAutomaton",
+    "AhoCorasickMatch",
+    "AhoCorasickNode",
     "AVLNode",
     "AVLTree",
     "BellmanFordResult",

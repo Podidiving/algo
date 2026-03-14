@@ -266,6 +266,29 @@ print(compute_prefix_function(pattern))
 print(kmp_search(text, pattern))
 ```
 
+### Aho-Corasick
+
+`AhoCorasickAutomaton` is useful when you want to search for many patterns in
+one pass through the text.
+
+Asymptotic complexity:
+
+- build trie and failure links: `O(sum(len(pattern)))`
+- search text of length `n`: `O(n + matches)`
+- memory usage: `O(sum(len(pattern)))`
+
+```python
+from algorithms import AhoCorasickAutomaton
+
+automaton = AhoCorasickAutomaton(["he", "she", "his", "hers"])
+
+matches = automaton.search("ushers")
+grouped = automaton.search_as_dict("ushers")
+
+print(matches)
+print(grouped)
+```
+
 ## Geometry algorithms
 
 ### Convex hull in 2D
@@ -404,6 +427,9 @@ print(radix_sort(values))
   - `bellman_ford_shortest_paths`
   - `floyd_warshall_shortest_paths`
 - `string_algorithms`
+  - `AhoCorasickAutomaton`
+  - `AhoCorasickMatch`
+  - `AhoCorasickNode`
   - `compute_prefix_function`
   - `kmp_search`
 - `geometry_algorithms`
