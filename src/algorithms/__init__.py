@@ -32,9 +32,15 @@ from .graph_algorithms import (
 )
 from .geometry_algorithms import (
     Point2D,
+    Triangle2D,
+    VoronoiDiagram,
+    VoronoiEdge,
+    delaunay_triangulation,
+    delaunay_triangulation_steps,
     graham_scan_convex_hull,
     jarvis_march_convex_hull,
     monotonic_chain_convex_hull,
+    voronoi_diagram,
 )
 from .range_queries import RMQ
 from .sorting_algorithms import heapsort, mergesort, quicksort, radix_sort
@@ -55,6 +61,7 @@ __all__ = [
     "LowestCommonAncestor",
     "MSTResult",
     "Point2D",
+    "Triangle2D",
     "RedBlackNode",
     "RedBlackTree",
     "RMQ",
@@ -62,8 +69,12 @@ __all__ = [
     "Treap",
     "TreapNode",
     "TreeNode",
+    "VoronoiDiagram",
+    "VoronoiEdge",
     "WeightedEdge",
     "bfs_traversal",
+    "delaunay_triangulation",
+    "delaunay_triangulation_steps",
     "heapsort",
     "mergesort",
     "compute_prefix_function",
@@ -80,4 +91,5 @@ __all__ = [
     "floyd_warshall_shortest_paths",
     "kruskal_mst",
     "prim_mst",
+    "voronoi_diagram",
 ]

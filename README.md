@@ -33,6 +33,13 @@ Run examples or your own scripts with:
 uv run python your_script.py
 ```
 
+If you want to run visualization scripts:
+
+```bash
+uv sync --group viz
+uv run --group viz python scripts/visualize_delaunay.py
+```
+
 ### With `pip`
 
 From the repository root:
@@ -292,6 +299,37 @@ print(graham_scan_convex_hull(points))
 print(jarvis_march_convex_hull(points))
 ```
 
+### Delaunay triangulation and Voronoi diagram
+
+The geometry package also includes:
+
+- `delaunay_triangulation`, implemented with Bowyer-Watson
+- `voronoi_diagram`, built as the dual of the Delaunay triangulation
+
+```python
+from algorithms import Point2D, delaunay_triangulation, voronoi_diagram
+
+points = [
+    Point2D(0, 0),
+    Point2D(1, 0),
+    Point2D(1, 1),
+    Point2D(0, 1),
+]
+
+triangles = delaunay_triangulation(points)
+diagram = voronoi_diagram(points)
+
+print(triangles)
+print(diagram.edges)
+```
+
+There is also a visualization script that shows the incremental Bowyer-Watson
+construction:
+
+```bash
+uv run --group viz python scripts/visualize_delaunay.py
+```
+
 ## Tree algorithms
 
 ### Least Common Ancestor
@@ -355,6 +393,8 @@ print(radix_sort(values))
   - `monotonic_chain_convex_hull`
   - `graham_scan_convex_hull`
   - `jarvis_march_convex_hull`
+  - `delaunay_triangulation`
+  - `voronoi_diagram`
 - `tree_algorithms`
   - `LowestCommonAncestor`
 - `sorting_algorithms`
