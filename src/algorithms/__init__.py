@@ -19,7 +19,10 @@ from .graph_algorithms import (
     FloydWarshallResult,
     MSTResult,
     WeightedEdge,
+    bfs_traversal,
     bellman_ford_shortest_paths,
+    connected_components,
+    dfs_traversal,
     dijkstra_shortest_paths,
     floyd_warshall_shortest_paths,
     kruskal_mst,
@@ -27,6 +30,8 @@ from .graph_algorithms import (
 )
 from .range_queries import RMQ
 from .sorting_algorithms import heapsort, mergesort, quicksort, radix_sort
+from .string_algorithms import compute_prefix_function, kmp_search
+from .tree_algorithms import LowestCommonAncestor
 
 __all__ = [
     "AVLNode",
@@ -39,6 +44,7 @@ __all__ = [
     "FloydWarshallResult",
     "ImplicitTreap",
     "ImplicitTreapNode",
+    "LowestCommonAncestor",
     "MSTResult",
     "RMQ",
     "SegmentTree",
@@ -46,8 +52,13 @@ __all__ = [
     "TreapNode",
     "TreeNode",
     "WeightedEdge",
+    "bfs_traversal",
     "heapsort",
     "mergesort",
+    "compute_prefix_function",
+    "connected_components",
+    "dfs_traversal",
+    "kmp_search",
     "quicksort",
     "radix_sort",
     "bellman_ford_shortest_paths",

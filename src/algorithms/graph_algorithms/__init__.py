@@ -9,6 +9,7 @@ from .shortest_paths import (
     dijkstra_shortest_paths,
     floyd_warshall_shortest_paths,
 )
+from .traversals import bfs_traversal, connected_components, dfs_traversal
 
 __all__ = [
     "BellmanFordResult",
@@ -16,7 +17,10 @@ __all__ = [
     "FloydWarshallResult",
     "MSTResult",
     "WeightedEdge",
+    "bfs_traversal",
     "bellman_ford_shortest_paths",
+    "connected_components",
+    "dfs_traversal",
     "dijkstra_shortest_paths",
     "floyd_warshall_shortest_paths",
     "kruskal_mst",

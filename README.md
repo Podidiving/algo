@@ -12,6 +12,7 @@ Use this library for studying:
 - balanced and unbalanced tree structures
 - range-query data structures
 - graph algorithms
+- string algorithms
 - sorting algorithms
 
 The code aims to stay practical and explicit, with documentation, comments,
@@ -149,6 +150,22 @@ print(rmq.query_with_index())
 
 ## Graph algorithms
 
+### BFS and DFS
+
+```python
+from algorithms import bfs_traversal, dfs_traversal
+
+graph = {
+    "A": ["B", "C"],
+    "B": ["A", "D"],
+    "C": ["A"],
+    "D": ["B"],
+}
+
+print(bfs_traversal(graph, "A"))
+print(dfs_traversal(graph, "A"))
+```
+
 ### Minimum spanning tree
 
 ```python
@@ -225,6 +242,42 @@ print(result.distance("A", "C"))
 print(result.path("A", "C"))
 ```
 
+## String algorithms
+
+### Prefix function and KMP
+
+```python
+from algorithms import compute_prefix_function, kmp_search
+
+pattern = "ababa"
+text = "ababaabababa"
+
+print(compute_prefix_function(pattern))
+print(kmp_search(text, pattern))
+```
+
+## Tree algorithms
+
+### Least Common Ancestor
+
+```python
+from algorithms import LowestCommonAncestor
+
+tree = {
+    1: [2, 3],
+    2: [1, 4, 5],
+    3: [1, 6],
+    4: [2],
+    5: [2],
+    6: [3],
+}
+
+lca = LowestCommonAncestor(tree, 1)
+
+print(lca.lca(4, 5))
+print(lca.distance(4, 6))
+```
+
 ## Sorting algorithms
 
 ```python
@@ -250,11 +303,18 @@ print(radix_sort(values))
 - `range_queries`
   - `RMQ`
 - `graph_algorithms`
+  - `bfs_traversal`
+  - `dfs_traversal`
   - `prim_mst`
   - `kruskal_mst`
   - `dijkstra_shortest_paths`
   - `bellman_ford_shortest_paths`
   - `floyd_warshall_shortest_paths`
+- `string_algorithms`
+  - `compute_prefix_function`
+  - `kmp_search`
+- `tree_algorithms`
+  - `LowestCommonAncestor`
 - `sorting_algorithms`
   - `quicksort`
   - `mergesort`
