@@ -12,6 +12,7 @@ Use this library for studying:
 - balanced and unbalanced tree structures
 - range-query data structures
 - graph algorithms
+- geometry algorithms
 - string algorithms
 - sorting algorithms
 
@@ -92,13 +93,15 @@ print(sequence.get(3))
 ### BST and AVL Tree
 
 ```python
-from algorithms import BST, AVLTree
+from algorithms import BST, AVLTree, RedBlackTree
 
 bst = BST([(5, "x"), (2, "y"), (8, "z")])
 avl = AVLTree([(5, "x"), (2, "y"), (8, "z")])
+rbt = RedBlackTree([(5, "x"), (2, "y"), (8, "z")])
 
 print(bst.get(2))
 print(avl.lower_bound(6).key)
+print(rbt.rank(8))
 ```
 
 ### Segment Tree
@@ -256,6 +259,39 @@ print(compute_prefix_function(pattern))
 print(kmp_search(text, pattern))
 ```
 
+## Geometry algorithms
+
+### Convex hull in 2D
+
+The library includes several classical convex hull implementations so you can
+compare approaches and asymptotics while studying:
+
+- `monotonic_chain_convex_hull`: `O(n log n)`
+- `graham_scan_convex_hull`: `O(n log n)`
+- `jarvis_march_convex_hull`: `O(nh)`, where `h` is the hull size
+
+```python
+from algorithms import (
+    Point2D,
+    graham_scan_convex_hull,
+    jarvis_march_convex_hull,
+    monotonic_chain_convex_hull,
+)
+
+points = [
+    Point2D(0, 0),
+    Point2D(2, 0),
+    Point2D(3, 1),
+    Point2D(2, 3),
+    Point2D(0, 2),
+    Point2D(1, 1),
+]
+
+print(monotonic_chain_convex_hull(points))
+print(graham_scan_convex_hull(points))
+print(jarvis_march_convex_hull(points))
+```
+
 ## Tree algorithms
 
 ### Least Common Ancestor
@@ -299,7 +335,8 @@ print(radix_sort(values))
   - `BST`
   - `AVLTree`
   - `SegmentTree`
-  - `DisjointSet`
+- `DisjointSet`
+  - `RedBlackTree`
 - `range_queries`
   - `RMQ`
 - `graph_algorithms`
@@ -313,6 +350,11 @@ print(radix_sort(values))
 - `string_algorithms`
   - `compute_prefix_function`
   - `kmp_search`
+- `geometry_algorithms`
+  - `Point2D`
+  - `monotonic_chain_convex_hull`
+  - `graham_scan_convex_hull`
+  - `jarvis_march_convex_hull`
 - `tree_algorithms`
   - `LowestCommonAncestor`
 - `sorting_algorithms`

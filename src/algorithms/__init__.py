@@ -8,6 +8,8 @@ from .data_structures import (
     DisjointSet,
     ImplicitTreap,
     ImplicitTreapNode,
+    RedBlackNode,
+    RedBlackTree,
     SegmentTree,
     Treap,
     TreapNode,
@@ -28,6 +30,12 @@ from .graph_algorithms import (
     kruskal_mst,
     prim_mst,
 )
+from .geometry_algorithms import (
+    Point2D,
+    graham_scan_convex_hull,
+    jarvis_march_convex_hull,
+    monotonic_chain_convex_hull,
+)
 from .range_queries import RMQ
 from .sorting_algorithms import heapsort, mergesort, quicksort, radix_sort
 from .string_algorithms import compute_prefix_function, kmp_search
@@ -46,6 +54,9 @@ __all__ = [
     "ImplicitTreapNode",
     "LowestCommonAncestor",
     "MSTResult",
+    "Point2D",
+    "RedBlackNode",
+    "RedBlackTree",
     "RMQ",
     "SegmentTree",
     "Treap",
@@ -58,7 +69,10 @@ __all__ = [
     "compute_prefix_function",
     "connected_components",
     "dfs_traversal",
+    "graham_scan_convex_hull",
+    "jarvis_march_convex_hull",
     "kmp_search",
+    "monotonic_chain_convex_hull",
     "quicksort",
     "radix_sort",
     "bellman_ford_shortest_paths",
