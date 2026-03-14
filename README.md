@@ -330,6 +330,12 @@ construction:
 uv run --group viz python scripts/visualize_delaunay.py
 ```
 
+There is a similar script for convex hull comparison:
+
+```bash
+uv run --group viz python scripts/visualize_convex_hull.py
+```
+
 ## Tree algorithms
 
 ### Least Common Ancestor
