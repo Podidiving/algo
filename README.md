@@ -336,6 +336,12 @@ There is a similar script for convex hull comparison:
 uv run --group viz python scripts/visualize_convex_hull.py
 ```
 
+And there is a step-by-step Graham scan visualizer:
+
+```bash
+uv run --group viz python scripts/visualize_graham_scan.py
+```
+
 ## Tree algorithms
 
 ### Least Common Ancestor

@@ -19,6 +19,24 @@ class Point2D:
     y: float
 
 
+@dataclass(frozen=True, slots=True)
+class GrahamScanStep:
+    """Single step of Graham scan for teaching and visualization.
+
+    ``action`` describes what happened:
+    - ``"choose_pivot"``: the lowest point was selected
+    - ``"sort_points"``: points were ordered by polar angle
+    - ``"push"``: a point was added to the hull stack
+    - ``"pop"``: the last point was removed because it made a non-left turn
+    """
+
+    action: str
+    hull: tuple[Point2D, ...]
+    current_point: Point2D | None = None
+    popped_point: Point2D | None = None
+    ordered_points: tuple[Point2D, ...] = ()
+
+
 def monotonic_chain_convex_hull(points: list[Point2D]) -> list[Point2D]:
     """Compute the convex hull with Andrew's monotonic chain algorithm.
 
@@ -57,11 +75,32 @@ def graham_scan_convex_hull(points: list[Point2D]) -> list[Point2D]:
     - Total extra memory: ``O(n)``
     """
 
+    steps = graham_scan_steps(points)
+    if not steps:
+        return []
+    return list(steps[-1].hull)
+
+
+def graham_scan_steps(points: list[Point2D]) -> list[GrahamScanStep]:
+    """Return a step-by-step trace of Graham's scan.
+
+    Asymptotic complexity:
+    - Sorting by polar angle: ``O(n log n)``
+    - Single scan over sorted points: ``O(n)``
+    - Total extra memory: ``O(n)``
+
+    The returned steps are intended for study, debugging, and visualization.
+    """
+
     unique = list(set(points))
-    if len(unique) <= 1:
-        return unique
+    if not unique:
+        return []
+    if len(unique) == 1:
+        return [GrahamScanStep(action="choose_pivot", hull=(unique[0],))]
 
     pivot = min(unique, key=lambda point: (point.y, point.x))
+    steps = [GrahamScanStep(action="choose_pivot", hull=(pivot,), current_point=pivot)]
+
     others = [point for point in unique if point != pivot]
     others.sort(
         key=lambda point: (
@@ -78,17 +117,40 @@ def graham_scan_convex_hull(points: list[Point2D]) -> list[Point2D]:
             filtered.pop()
         filtered.append(point)
 
-    if not filtered:
-        return [pivot]
-    if len(filtered) == 1:
-        return [pivot, filtered[0]]
+    steps.append(
+        GrahamScanStep(
+            action="sort_points",
+            hull=(pivot,),
+            ordered_points=tuple(filtered),
+        )
+    )
 
-    hull = [pivot, filtered[0], filtered[1]]
-    for point in filtered[2:]:
+    if not filtered:
+        return steps
+
+    hull = [pivot]
+    for point in filtered:
         while len(hull) >= 2 and _cross(hull[-2], hull[-1], point) <= 0:
-            hull.pop()
+            removed = hull.pop()
+            steps.append(
+                GrahamScanStep(
+                    action="pop",
+                    hull=tuple(hull),
+                    current_point=point,
+                    popped_point=removed,
+                    ordered_points=tuple(filtered),
+                )
+            )
         hull.append(point)
-    return hull
+        steps.append(
+            GrahamScanStep(
+                action="push",
+                hull=tuple(hull),
+                current_point=point,
+                ordered_points=tuple(filtered),
+            )
+        )
+    return steps
 
 
 def jarvis_march_convex_hull(points: list[Point2D]) -> list[Point2D]:

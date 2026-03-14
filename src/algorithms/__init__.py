@@ -31,6 +31,7 @@ from .graph_algorithms import (
     prim_mst,
 )
 from .geometry_algorithms import (
+    GrahamScanStep,
     Point2D,
     Triangle2D,
     VoronoiDiagram,
@@ -38,6 +39,7 @@ from .geometry_algorithms import (
     delaunay_triangulation,
     delaunay_triangulation_steps,
     graham_scan_convex_hull,
+    graham_scan_steps,
     jarvis_march_convex_hull,
     monotonic_chain_convex_hull,
     voronoi_diagram,
@@ -56,6 +58,7 @@ __all__ = [
     "DijkstraResult",
     "DisjointSet",
     "FloydWarshallResult",
+    "GrahamScanStep",
     "ImplicitTreap",
     "ImplicitTreapNode",
     "LowestCommonAncestor",
@@ -81,6 +84,7 @@ __all__ = [
     "connected_components",
     "dfs_traversal",
     "graham_scan_convex_hull",
+    "graham_scan_steps",
     "jarvis_march_convex_hull",
     "kmp_search",
     "monotonic_chain_convex_hull",
