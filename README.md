@@ -342,6 +342,12 @@ And there is a step-by-step Graham scan visualizer:
 uv run --group viz python scripts/visualize_graham_scan.py
 ```
 
+And there is a step-by-step Jarvis march visualizer:
+
+```bash
+uv run --group viz python scripts/visualize_jarvis_march.py
+```
+
 ## Tree algorithms
 
 ### Least Common Ancestor

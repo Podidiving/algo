@@ -37,6 +37,24 @@ class GrahamScanStep:
     ordered_points: tuple[Point2D, ...] = ()
 
 
+@dataclass(frozen=True, slots=True)
+class JarvisMarchStep:
+    """Single step of Jarvis march for teaching and visualization.
+
+    ``action`` describes what happened:
+    - ``"choose_start"``: the leftmost point was selected
+    - ``"consider_candidate"``: a candidate next hull point is being checked
+    - ``"update_candidate"``: a better next hull point was found
+    - ``"commit_hull_point"``: the next hull vertex was fixed
+    """
+
+    action: str
+    hull: tuple[Point2D, ...]
+    current_point: Point2D | None = None
+    candidate_point: Point2D | None = None
+    challenger_point: Point2D | None = None
+
+
 def monotonic_chain_convex_hull(points: list[Point2D]) -> list[Point2D]:
     """Compute the convex hull with Andrew's monotonic chain algorithm.
 
@@ -167,27 +185,91 @@ def jarvis_march_convex_hull(points: list[Point2D]) -> list[Point2D]:
     if len(unique) <= 1:
         return unique
 
+    steps = jarvis_march_steps(points)
+    if not steps:
+        return []
+
+    committed: list[Point2D] = []
+    for step in steps:
+        if step.action == "commit_hull_point" and step.current_point is not None:
+            committed.append(step.current_point)
+    if committed and committed[-1] == committed[0]:
+        committed.pop()
+    return committed
+
+
+def jarvis_march_steps(points: list[Point2D]) -> list[JarvisMarchStep]:
+    """Return a step-by-step trace of Jarvis march.
+
+    Asymptotic complexity:
+    - Each hull vertex scans all points: ``O(nh)``
+    - In the worst case this becomes ``O(n^2)``
+    - Extra memory usage is ``O(h)`` plus the returned trace
+    """
+
+    unique = list(set(points))
+    if not unique:
+        return []
+    if len(unique) == 1:
+        return [
+            JarvisMarchStep(
+                action="choose_start", hull=(unique[0],), current_point=unique[0]
+            )
+        ]
+
     start = min(unique, key=lambda point: (point.x, point.y))
     hull: list[Point2D] = []
     current = start
+    steps = [JarvisMarchStep(action="choose_start", hull=(start,), current_point=start)]
 
     while True:
         hull.append(current)
+        steps.append(
+            JarvisMarchStep(
+                action="commit_hull_point",
+                hull=tuple(hull),
+                current_point=current,
+            )
+        )
         candidate = unique[0] if unique[0] != current else unique[1]
         for point in unique:
             if point == current:
                 continue
+            steps.append(
+                JarvisMarchStep(
+                    action="consider_candidate",
+                    hull=tuple(hull),
+                    current_point=current,
+                    candidate_point=candidate,
+                    challenger_point=point,
+                )
+            )
             turn = _cross(current, candidate, point)
-            if turn < 0:
-                candidate = point
-            elif turn == 0 and _distance_squared(current, point) > _distance_squared(
-                current, candidate
+            if turn < 0 or (
+                turn == 0
+                and _distance_squared(current, point)
+                > _distance_squared(current, candidate)
             ):
                 candidate = point
+                steps.append(
+                    JarvisMarchStep(
+                        action="update_candidate",
+                        hull=tuple(hull),
+                        current_point=current,
+                        candidate_point=candidate,
+                    )
+                )
         current = candidate
         if current == start:
+            steps.append(
+                JarvisMarchStep(
+                    action="commit_hull_point",
+                    hull=tuple(hull) + (start,),
+                    current_point=start,
+                )
+            )
             break
-    return hull
+    return steps
 
 
 def _cross(origin: Point2D, first: Point2D, second: Point2D) -> float:

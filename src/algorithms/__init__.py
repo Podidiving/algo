@@ -32,6 +32,7 @@ from .graph_algorithms import (
 )
 from .geometry_algorithms import (
     GrahamScanStep,
+    JarvisMarchStep,
     Point2D,
     Triangle2D,
     VoronoiDiagram,
@@ -41,6 +42,7 @@ from .geometry_algorithms import (
     graham_scan_convex_hull,
     graham_scan_steps,
     jarvis_march_convex_hull,
+    jarvis_march_steps,
     monotonic_chain_convex_hull,
     voronoi_diagram,
 )
@@ -61,6 +63,7 @@ __all__ = [
     "GrahamScanStep",
     "ImplicitTreap",
     "ImplicitTreapNode",
+    "JarvisMarchStep",
     "LowestCommonAncestor",
     "MSTResult",
     "Point2D",
@@ -86,6 +89,7 @@ __all__ = [
     "graham_scan_convex_hull",
     "graham_scan_steps",
     "jarvis_march_convex_hull",
+    "jarvis_march_steps",
     "kmp_search",
     "monotonic_chain_convex_hull",
     "quicksort",
